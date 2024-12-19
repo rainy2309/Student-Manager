@@ -33,11 +33,11 @@ public class StudentManager {
         System.out.print("Nhập điểm: ");
         double score = Double.parseDouble(sc.nextLine());
         students.add(new Student(name, age, score));
-        System.out.println("Đã thêm sinh viên thành công!");
+        System.out.println("Đã thêm rồi đấy");
     }
     public static void displayStudents() {
         if (students.isEmpty()) {
-            System.out.println("Danh sách sinh viên rỗng!");
+            System.out.println("Không có khứa nào trong danh sách");
             return;
         }
         System.out.println("Danh sách sinh viên:");
@@ -46,7 +46,7 @@ public class StudentManager {
         }
     }
     public static void searchStudent() {
-        System.out.print("Nhập tên sinh viên cần tìm: ");
+        System.out.print("Nhập tên sinh viên: ");
         String name = sc.nextLine();
         boolean found = false;
         for (Student student : students) {
@@ -56,7 +56,7 @@ public class StudentManager {
             }
         }
         if (!found) {
-            System.out.println("Không tìm thấy sinh viên với tên: " + name);
+            System.out.println("Không thấy ai tên " + name);
         }
     }
     public static void deleteStudent() {
@@ -64,9 +64,9 @@ public class StudentManager {
         String name = sc.nextLine();
         boolean removed = students.removeIf(student -> student.getName().equalsIgnoreCase(name));
         if (removed) {
-            System.out.println("Đã xóa sinh viên thành công!");
+            System.out.println("Xóa xong rồi đấy");
         } else {
-            System.out.println("Không tìm thấy sinh viên với tên: " + name);
+            System.out.println("Không thấy ai tên " + name);
         }
     }
     public static void main(String[] args) {
@@ -96,7 +96,7 @@ public class StudentManager {
                 case 5:
                     System.exit(0);
                 default:
-                    System.out.println("Chọn lại đi");
+                    System.out.println("Chọn lại đi!??!?");
             }
         }
     }
