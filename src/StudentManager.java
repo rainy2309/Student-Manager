@@ -77,7 +77,7 @@ public class StudentManager {
             System.out.println("3. Tìm sinh viên theo tên");
             System.out.println("4. Xóa sinh viên theo tên");
             System.out.println("5. Thoát chương trình");
-            System.out.print("Nhập lựa chọn: ");
+            System.out.print("Thích số nào: ");
 
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
