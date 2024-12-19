@@ -77,7 +77,7 @@ public class StudentManager {
             System.out.println("3. Tìm sinh viên theo tên");
             System.out.println("4. Xóa sinh viên theo tên");
             System.out.println("5. Thoát chương trình");
-            System.out.print("Nhập lựa chọn của bạn: ");
+            System.out.print("Nhập lựa chọn: ");
 
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
@@ -94,10 +94,9 @@ public class StudentManager {
                     deleteStudent();
                     break;
                 case 5:
-                    System.out.println("Chương trình kết thúc.");
                     System.exit(0);
                 default:
-                    System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại!");
+                    System.out.println("Chọn lại đi");
             }
         }
     }
