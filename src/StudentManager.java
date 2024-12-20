@@ -19,7 +19,7 @@ class Student {
         return score;
     }
     public void display() {
-        System.out.println("Tên: " + name + "Tuổi: " + age + "Điểm: " + score);
+        System.out.println("Tên: " + name + " Tuổi: " + age + " Điểm: " + score);
     }
 }
 public class StudentManager {
