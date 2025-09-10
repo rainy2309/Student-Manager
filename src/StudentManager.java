@@ -1,47 +1,93 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class StudentManager {
-    private List<Student> students;
 
-    public StudentManager(){
-        students = new ArrayList<>();
-    }
+    // Thêm sinh viên
+    public void addStudent(Student student) {
+        String sql = "INSERT INTO Students (id, name, age) VALUES (?, ?, ?)";
 
-    //add
-    public void addStudent(Student s){
-        students.add(s);
-    }
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    //delete
-    public boolean removeStudent(String id){
-        return students.removeIf(s -> s.getId().equals(id));
-    }
+            stmt.setInt(1, student.getId());
+            stmt.setString(2, student.getName());
+            stmt.setInt(3, student.getAge());
 
-    //find id
-    public Student findStudent(String id){
-        for(Student s: students){
-            if(s.getId().equals(id)){
-                return s;
-            }
-        }
-        return null;
-    }
+            stmt.executeUpdate();
+            System.out.println("✅ Student added: " + student.getName());
 
-    //print all
-    public void printAll(){
-        if(students.isEmpty()){
-            System.out.println("Empty!!!");
-        }else{
-            for(Student s: students){
-                System.out.println(s);;
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void sortByGPA() {
-        Collections.sort(students, Comparator.comparingDouble(Student::getGpa).reversed());
+    // Hiển thị toàn bộ sinh viên
+    public void showStudents() {
+        String sql = "SELECT * FROM Students";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            System.out.println("\n📋 Student List:");
+            while (rs.next()) {
+                System.out.println(
+                        rs.getInt("id") + " - " +
+                                rs.getString("name") + " - " +
+                                rs.getInt("age")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Xóa sinh viên theo ID
+    public void deleteStudent(int id) {
+        String sql = "DELETE FROM Students WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            int rows = stmt.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("🗑️ Student with ID " + id + " deleted.");
+            } else {
+                System.out.println("⚠️ Student not found.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Tìm sinh viên theo ID
+    public void findStudentById(int id) {
+        String sql = "SELECT * FROM Students WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    System.out.println("🔎 Found: " +
+                            rs.getInt("id") + " - " +
+                            rs.getString("name") + " - " +
+                            rs.getInt("age"));
+                } else {
+                    System.out.println("⚠️ No student with ID " + id);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
