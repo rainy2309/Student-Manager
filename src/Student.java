@@ -5,20 +5,12 @@ public class Student{
     private double gpa;
 
     // cons
-    public Student(String name, int id, int age, double gpa){
+    public Student(int id, String name, int age){
         this.name=name;
         this.id=id;
         this.age=age;
         this.gpa=gpa;
     }
-
-    public Student(int id, String name, int age) {
-        this.id=id;
-        this.age=age;
-        this.name=name;
-        this.age=age;
-    }
-
     //getset
 
 
